@@ -25,11 +25,16 @@ type Device struct {
     Events          map[string]map[string]string `json:"events,omitempty"`
 }
 
-type GetDevicesResult struct {
+type GetDevicesList struct {
     TotalCount int      `json:"totalCount"`
     Hash       string   `json:"hash"`
     Success    bool     `json:"success"`
     Devices    []Device `json:"devices"`
+}
+
+type GetDevicesResult struct {
+    Response
+    Result *GetDevicesList `json:"result"`
 }
 
 type GetDevicesQuery struct {
@@ -42,12 +47,12 @@ type GetDevicesQuery struct {
     Dir    string            `json:"dir,omitempty"`   // (optional) Sort order; can be either 'ASC' or 'DESC' (default: 'ASC')
 }
 
-func (a *API) GetDevices(query GetDevicesQuery) (*Response, *http.Response, error) {
+func (a *API) GetDevices(query GetDevicesQuery) (*GetDevicesResult, *http.Response, error) {
     r := request{
         Action: "DeviceRouter",
         Method: "getDevices",
         Data:   []interface{}{query},
-        Tid:    a.nextTid(),
+        TID:    a.nextTID(),
     }
 
     path := "/zport/dmd/device_router"
@@ -56,7 +61,7 @@ func (a *API) GetDevices(query GetDevicesQuery) (*Response, *http.Response, erro
         return nil, nil, err
     }
 
-    res := Response{Result: GetDevicesResult{}}
+    var res GetDevicesResult
     resp, err := a.Do(req, &res)
     if err != nil {
         return nil, resp, err

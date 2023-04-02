@@ -21,20 +21,17 @@ type API struct {
     mu       sync.Mutex
 }
 
-// type data map[string]string
-
 type request struct {
     Action string        `json:"action"`
     Method string        `json:"method"`
     Data   []interface{} `json:"data"`
-    Tid    int           `json:"tid"`
+    TID    int           `json:"tid"`
 }
 
 type Response struct {
     UUID   string      `json:"uuid"`
     Action string      `json:"action"`
-    Result interface{} `json:"result"`
-    Tid    int         `json:"tid"`
+    TID    int         `json:"tid"`
     Type   string      `json:"type"`
     Method string      `json:"method"`
 }
@@ -66,7 +63,7 @@ func NewAPI(endpoint string, username string, password string) (*API, error) {
     return a, nil
 }
 
-func (a *API) nextTid() int {
+func (a *API) nextTID() int {
     a.mu.Lock()
     defer a.mu.Unlock()
     a.tid++
