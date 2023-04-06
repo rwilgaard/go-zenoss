@@ -1,4 +1,4 @@
-package gozenoss
+package zenoss
 
 import "net/http"
 

@@ -1,3 +1,3 @@
-module github.com/rwilgaard/zenoss-go-api
+module github.com/rwilgaard/go-zenoss
 
 go 1.19
