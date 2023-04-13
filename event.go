@@ -39,8 +39,8 @@ type Event struct {
     EvID              string                 `json:"evid,omitempty"`
     Component         *Component             `json:"component,omitempty"`
     Summary           string                 `json:"summary,omitempty"`
-    FirstTime         float64                `json:"firstTime,omitempty"`
-    LastTime          float64                `json:"lastTime,omitempty"`
+    FirstTime         interface{}            `json:"firstTime,omitempty"`
+    LastTime          interface{}            `json:"lastTime,omitempty"`
 }
 
 type QueryEventsList struct {
